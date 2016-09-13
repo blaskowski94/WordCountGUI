@@ -19,7 +19,7 @@ public class FileProcessing {
 		fileProcessed = false;
 	}
 	
-	private HashMap<String, Integer> processFile() throws FileNotFoundException{
+	public HashMap<String, Integer> processFile() throws FileNotFoundException{
 		Scanner scan = new Scanner(file);
 		while(scan.hasNext()){
 			String word = scan.next().replaceAll("[^a-zA-Z ']", "").toLowerCase();
