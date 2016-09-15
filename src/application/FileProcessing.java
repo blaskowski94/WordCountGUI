@@ -7,27 +7,29 @@ import java.util.Scanner;
 
 public class FileProcessing {
 	
-	private File file;
-	private HashMap<String, Integer> wordMap;
-	private boolean fileProcessed;
+	private File						file;
+	private HashMap<String, Integer>	wordMap;
+	private boolean						fileProcessed;
 	
 	/* Implement check to see if .txt file */
 	
-	public FileProcessing(File f){
+	public FileProcessing(File f) {
 		file = f;
 		wordMap = new HashMap<>();
 		fileProcessed = false;
 	}
 	
-	public HashMap<String, Integer> processFile() throws FileNotFoundException{
+	public HashMap<String, Integer> processFile() throws FileNotFoundException {
 		Scanner scan = new Scanner(file);
-		while(scan.hasNext()){
+		while (scan.hasNext()) {
 			String word = scan.next().replaceAll("[^a-zA-Z ']", "").toLowerCase();
-			if(wordMap.containsKey(word)){
+			if (word.equals("")) {
+				continue;
+			}
+			if (wordMap.containsKey(word)) {
 				int count = wordMap.get(word);
 				wordMap.put(word, ++count);
-			}
-			else
+			} else
 				wordMap.put(word, 1);
 		}
 		fileProcessed = true;
@@ -35,10 +37,10 @@ public class FileProcessing {
 		return wordMap;
 	}
 	
-	public int countWords() throws FileNotFoundException{
+	public int countWords() throws FileNotFoundException {
 		Scanner scan = new Scanner(file);
 		int count = 0;
-		while(scan.hasNext()){
+		while (scan.hasNext()) {
 			scan.next();
 			count++;
 		}
@@ -46,16 +48,16 @@ public class FileProcessing {
 		return count;
 	}
 	
-	public int countDiffWords() throws FileNotFoundException{
-		if(!fileProcessed){
+	public int countDiffWords() throws FileNotFoundException {
+		if (!fileProcessed) {
 			processFile();
 		}
 		
 		return wordMap.size();
 	}
 	
-	public HashMap<String,Integer> countByWord() throws FileNotFoundException{
-		if(!fileProcessed){
+	public HashMap<String, Integer> countByWord() throws FileNotFoundException {
+		if (!fileProcessed) {
 			processFile();
 		}
 		return wordMap;
