@@ -33,7 +33,6 @@ public class FileProcessing {
 	public FileProcessing(File f) {
 		if (!f.exists() || !f.isFile()
 				|| !f.getName().substring(f.getName().lastIndexOf('.'), f.getName().length()).equals(".txt")) {
-			// System.out.println("Error loading file: file must be a .txt file");
 			fileLoaded = false;
 		} else {
 			file = f;
