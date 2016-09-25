@@ -14,18 +14,27 @@
                     <menus>
                         <Menu mnemonicParsing="false" text="File">
                             <items>
-                                <MenuItem fx:id="close" mnemonicParsing="false" onAction="#closeProgram" text="Close"/>
+                                <MenuItem mnemonicParsing="false" onAction="#closeProgram" text="Close"/>
                             </items>
                         </Menu>
                     </menus>
                 </MenuBar>
             </top>
             <center>
-                <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER"/>
+                <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308"
+                            maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0"
+                            AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                            AnchorPane.topAnchor="0.0" BorderPane.alignment="CENTER">
+                    <content>
+                        <TextArea fx:id="fileDisplay" editable="false" maxHeight="1.7976931348623157E308"
+                                  maxWidth="1.7976931348623157E308" prefHeight="352.0" prefWidth="560.0" wrapText="true"
+                                  AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                  AnchorPane.topAnchor="0.0"/>
+                    </content>
+                </ScrollPane>
             </center>
             <bottom>
-                <Button fx:id="fileButton" mnemonicParsing="false" onAction="#chooseFile" text="Choose File"
-                        BorderPane.alignment="CENTER">
+                <Button mnemonicParsing="false" onAction="#chooseFile" text="Choose File" BorderPane.alignment="CENTER">
                     <BorderPane.margin>
                         <Insets bottom="10.0" top="10.0"/>
                     </BorderPane.margin>

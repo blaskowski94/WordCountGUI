@@ -59,13 +59,16 @@ public class FileProcessing {
                     // apostrophes
                     String word = scan.next().replaceAll("[^a-zA-Z ']", "").toLowerCase();
 
-                    // counts the total number of words
-                    totalWordCount++;
+
 
                     // ignore all empty strings
                     if (word.equals("")) {
                         continue;
                     }
+
+                    // counts the total number of words, after empty string if so empty strings are not counted as words
+                    totalWordCount++;
+
                     // increment value if word is already found
                     if (wordMap.containsKey(word)) {
                         int count = wordMap.get(word);
