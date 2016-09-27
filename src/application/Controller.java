@@ -47,6 +47,7 @@ public class Controller {
     /**
      * Defines the action taken by the "Choose File" button. It creates a File Chooser to allow the user
      * to select a text file. Once the file is selected, it is passed to the displayFile method.
+     *
      */
     public void chooseFile() {
         FileChooser fc = new FileChooser();
@@ -99,11 +100,14 @@ public class Controller {
     }
 
     /**
+     * Saves info generated about a file to a txt.info file.
+     *
      * Defines the action for the save file menu button. It first checks to see if a file has been selected and if not
      * displays an error message. If a file has been selected, a file chooser opens in the directory where the file
      * was selected from and with the default option to save the file as "*filename*.txt.info" where *filename* is the
      * name of the file. Once the save directory and file name have been chosen in the file chooser, the writeToFile
      * method is called.
+     *
      */
     public void saveFile() {
         if (fileChosen) {
@@ -123,7 +127,7 @@ public class Controller {
     }
 
     /**
-     * Default close action, closes the program. Called from the File > Close menu button.
+     * Default close action, closes the program. Called from the File - Close menu button.
      */
     public void closeProgram() {
         System.exit(0);
@@ -133,6 +137,8 @@ public class Controller {
 
 
     /**
+     * Checks to see if file is valid.
+     *
      * Checks that the file selected exists, we have permission to read the file, that it is a file
      * (and not a directory), and that the extension is ".txt". Future developments may allow other file extensions
      * that contain text and verify by the encoding of the file instead of the extension. If these conditions are met,
