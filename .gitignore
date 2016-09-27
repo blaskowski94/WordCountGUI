@@ -1,1 +1,6 @@
 /bin/
+/JavaDoc/
+.classpath
+.idea/workspace.xml
+.project
+LaskowskiProjectOne.iml

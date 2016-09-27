@@ -1,4 +1,5 @@
 package application;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
@@ -58,8 +59,6 @@ public class FileProcessing {
                     // are not lower case letters, upper case letters, spaces or
                     // apostrophes
                     String word = scan.next().replaceAll("[^a-zA-Z ']", "").toLowerCase();
-
-
 
                     // ignore all empty strings
                     if (word.equals("")) {
