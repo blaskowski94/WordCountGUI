@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -31,10 +32,14 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("GUI.fxml"));
+
         try {
             Parent root = loader.load();
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add("application/Style.css");
             primaryStage.setTitle("Text File Processing");
-            primaryStage.setScene(new Scene(root));
+            primaryStage.getIcons().add(new Image("file:images/text-document.png"));
+            primaryStage.setScene(scene);
             primaryStage.show();
             Controller controller = loader.getController();
             controller.init(primaryStage);

@@ -27,7 +27,6 @@ public class Controller {
     private Stage stage; // primary stage passed from Main
     @FXML
     private TextArea fileDisplay; // GUI component where text file information will be displayed
-    @FXML
     private String fileName; // The filepath of the text file, used for saving
     private boolean fileChosen = false; // True when file has been validated, used to determine if there is a file to writeToFile
 
@@ -47,7 +46,6 @@ public class Controller {
     /**
      * Defines the action taken by the "Choose File" button. It creates a File Chooser to allow the user
      * to select a text file. Once the file is selected, it is passed to the displayFile method.
-     *
      */
     public void chooseFile() {
         FileChooser fc = new FileChooser();
@@ -65,9 +63,9 @@ public class Controller {
      */
     public void dragOver(DragEvent d) {
         Dragboard db = d.getDragboard();
-        if (db.hasFiles())
+        if (db.hasFiles()) {
             d.acceptTransferModes(TransferMode.COPY);
-        else
+        } else
             d.consume();
     }
 
@@ -80,34 +78,74 @@ public class Controller {
      * @param d An event resulting from a drag and drop gesture
      */
     public void dragDropped(DragEvent d) {
+        fileDisplay.setStyle("-fx-border-color: lightgray;"); // reset border
         Dragboard db = d.getDragboard();
         boolean success = false;
-        String filePath = "";
-        if (db.hasFiles()) {
-            List<File> temp = db.getFiles();
-            if (temp.size() == 1) {
-                success = true;
-                for (File files : temp) {
-                    filePath = files.getAbsolutePath();
-                }
-                displayFile(new File(filePath));
-            } else {
-                fileDisplay.setText("You may only drag and drop one file at a time.");
-            }
+        List<File> file = db.getFiles();
+        if (file.size() == 1) { // Check to see if more than one file being dragged in
+            success = true;
+            displayFile(file.get(0));
+        } else {
+            fileDisplay.setText("You may only drag and drop one file at a time.");
         }
+        if (!success) // Disallow file saving if problem with file
+            fileChosen = false;
         d.setDropCompleted(success);
         d.consume();
     }
 
     /**
-     * Saves info generated about a file to a txt.info file.
+     * Changes CSS styling of TextArea when a file is dragged over that GUI element. If one text file is dragged,
+     * border turns green. Otherwise, border turns red.
      *
+     * @param d An event resulting from a drag and drop gesture
+     */
+    public void dragEntered(DragEvent d) {
+        Dragboard db = d.getDragboard();
+        boolean accepted = false;
+        List<File> file = db.getFiles();
+        if (file.size() == 1 && file.get(0).getName().toLowerCase().endsWith(".txt"))
+            accepted = true;
+        if (accepted) {
+            fileDisplay.setStyle("-fx-border-color: green;"
+                    + "-fx-border-width: 5;"
+                    + "-fx-background-color: lightgray;"
+                    + "-fx-border-style: solid;");
+        } else {
+            fileDisplay.setStyle("-fx-border-color: red;"
+                    + "-fx-border-width: 5;"
+                    + "-fx-background-color: lightgray;"
+                    + "-fx-border-style: solid;");
+        }
+        d.consume();
+    }
+
+    /**
+     * Resets the border to light gray if file is not dropped and drag exits the program.
+     *
+     * @param d An event resulting from a drag and drop gesture
+     */
+    public void dragExited(DragEvent d) {
+        fileDisplay.setStyle("-fx-border-color: lightgray;");
+        d.consume();
+    }
+
+    /**
+     * Resets the program to its start state with default prompt. This is the event handler for the Reset menu button.
+     */
+    public void reset() {
+        fileDisplay.setText("Choose a text file to display information about the file. Use the button below or drag and drop the file here.");
+        fileChosen = false;
+    }
+
+    /**
+     * Saves info generated about a file to a txt.info file.
+     * <p>
      * Defines the action for the save file menu button. It first checks to see if a file has been selected and if not
      * displays an error message. If a file has been selected, a file chooser opens in the directory where the file
      * was selected from and with the default option to save the file as "*filename*.txt.info" where *filename* is the
      * name of the file. Once the save directory and file name have been chosen in the file chooser, the writeToFile
      * method is called.
-     *
      */
     public void saveFile() {
         if (fileChosen) {
@@ -138,7 +176,7 @@ public class Controller {
 
     /**
      * Checks to see if file is valid.
-     *
+     * <p>
      * Checks that the file selected exists, we have permission to read the file, that it is a file
      * (and not a directory), and that the extension is ".txt". Future developments may allow other file extensions
      * that contain text and verify by the encoding of the file instead of the extension. If these conditions are met,
